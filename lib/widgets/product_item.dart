@@ -29,7 +29,7 @@ class ProductItem extends StatelessWidget {
                 product.isFavorite ? Icons.favorite : Icons.favorite_border,
               ),
               iconSize: 20,
-              color: Theme.of(context).accentColor,
+              color: Colors.deepOrange,
             ),
           ),
           trailing: IconButton(
