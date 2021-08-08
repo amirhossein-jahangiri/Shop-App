@@ -3,9 +3,13 @@ import 'package:flutter/foundation.dart';
 import '../models/cart_item.dart';
 
 class Cart with ChangeNotifier {
-  Map<String, CartItem>? _items;
+  Map<String, CartItem>? _items = {};
 
   Map<String, CartItem> get items => {..._items!};
+
+  int get itemCount {
+    return _items!.length;
+  }
 
   void addItem(String productId, String title, double price) {
     if (_items!.containsKey(productId)) {
@@ -29,5 +33,6 @@ class Cart with ChangeNotifier {
         ),
       );
     }
+    notifyListeners();
   }
 }
