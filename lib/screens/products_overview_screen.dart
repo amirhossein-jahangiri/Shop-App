@@ -4,9 +4,9 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import '../widgets/products_grid.dart';
-import '../providers/products.dart';
 import '../widgets/badge.dart';
 import '../providers/cart.dart';
+import './cart_screen.dart';
 
 enum FilterOptions {
   Favorites,
@@ -50,10 +50,11 @@ class _ProductsOverViewScreenState extends State<ProductsOverViewScreen> {
           ),
           Consumer<Cart>(
             builder: (context, cart, child) {
-              log('cart . item count is ${cart.itemCount}');
               return Badge(
                 child: IconButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    Navigator.of(context).pushNamed(CartScreen.routeName);
+                  },
                   icon: Icon(Icons.shopping_cart),
                 ),
                 value: cart.itemCount.toString(),
