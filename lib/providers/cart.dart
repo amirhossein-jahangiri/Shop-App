@@ -1,4 +1,7 @@
+import 'dart:developer';
+
 import 'package:flutter/foundation.dart';
+import 'package:flutter/material.dart';
 
 import '../models/cart_item.dart';
 
@@ -17,6 +20,12 @@ class Cart with ChangeNotifier {
       total += value.price! * value.quantity!;
     });
     return total;
+  }
+
+  void removeItem(String productId){
+    log('remove item method $productId and items length id ${_items!.length}');
+    _items!.remove(productId);
+    notifyListeners();
   }
 
   void addItem(String productId, String title, double price) {
