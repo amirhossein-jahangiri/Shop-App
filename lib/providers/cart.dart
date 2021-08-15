@@ -52,4 +52,10 @@ class Cart with ChangeNotifier {
     }
     notifyListeners();
   }
+
+
+  void clean(){
+    _items = {};
+    notifyListeners();
+  }
 }
