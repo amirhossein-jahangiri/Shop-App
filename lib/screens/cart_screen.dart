@@ -3,6 +3,7 @@ import 'package:provider/provider.dart';
 
 import '../providers/cart.dart';
 import '../widgets/cart_item.dart';
+import '../providers/orders.dart';
 
 class CartScreen extends StatelessWidget {
   static const String routeName = '/cart';
@@ -27,13 +28,23 @@ class CartScreen extends StatelessWidget {
                     label: Consumer<Cart>(
                       builder: (context, cart, child) => Text(
                         '\$ ${cart.totalAmount.toStringAsFixed(2)}',
-                        style: TextStyle(color: Theme.of(context).primaryTextTheme.headline6!.color),
+                        style: TextStyle(
+                            color: Theme.of(context)
+                                .primaryTextTheme
+                                .headline6!
+                                .color),
                       ),
                     ),
                     backgroundColor: Theme.of(context).primaryColor,
                   ),
                   TextButton(
-                    onPressed: (){},
+                    onPressed: () {
+                      Provider.of<Orders>(context, listen: false).addOrder(
+                        cart.items.values.toList(),
+                        cart.totalAmount,
+                      );
+                      cart.clear();
+                    },
                     child: Text('ORDER NOW'),
                   ),
                 ],
@@ -42,14 +53,16 @@ class CartScreen extends StatelessWidget {
           ),
           SizedBox(height: 10),
           Expanded(
-            child: ListView.builder(
-              itemCount: cart.items.length,
-              itemBuilder: (context, index) => CartItem(
-                productId: cart.items.keys.toList()[index],
-                id: cart.items.values.toList()[index].id,
-                title: cart.items.values.toList()[index].title,
-                price: cart.items.values.toList()[index].price,
-                quantitiy: cart.items.values.toList()[index].quantity,
+            child: Consumer<Cart>(
+              builder: (context, cart, child) => ListView.builder(
+                itemCount: cart.items.length,
+                itemBuilder: (context, index) => CartItem(
+                  productId: cart.items.keys.toList()[index],
+                  id: cart.items.values.toList()[index].id,
+                  title: cart.items.values.toList()[index].title,
+                  price: cart.items.values.toList()[index].price,
+                  quantitiy: cart.items.values.toList()[index].quantity,
+                ),
               ),
             ),
           ),
