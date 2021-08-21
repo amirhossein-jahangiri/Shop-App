@@ -1,6 +1,18 @@
-# shop_app
+# Shop App
 
-Simple shop application with flutter and provider state management
+**Simple shop application with flutter and provider state management**
+
+<img src='screenshots/pic1.png' width='200' height='400'>
+<img src='screenshots/pic2.png' width='200' height='400'>
+<img src='screenshots/pic3.png' width='200' height='400'>
+<img src='screenshots/pic4.png' width='200' height='400'>
+<img src='screenshots/pic5.png' width='200' height='400'>
+<img src='screenshots/pic6.png' width='200' height='400'>
+
+
+**Created by AmirHossein Jahangiri**</br>
+*My artistic name is Surena*
+
 
 ## Getting Started
 
