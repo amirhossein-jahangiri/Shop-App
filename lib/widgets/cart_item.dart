@@ -18,7 +18,7 @@ class CartItem extends StatelessWidget {
     this.title,
     this.price,
     this.quantitiy,
-});
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -26,25 +26,49 @@ class CartItem extends StatelessWidget {
     return Dismissible(
       key: ValueKey(id),
       direction: DismissDirection.endToStart,
-      onDismissed: (direction){
+      confirmDismiss: (direction) => showDialog(
+        context: context,
+        barrierDismissible: false,
+        builder: (context) => AlertDialog(
+          title: Text('Are you sure?'),
+          content: Text('Do you want to remove the item from the cart?'),
+          actions: <Widget>[
+            TextButton(
+              onPressed: () => Navigator.of(context).pop(false),
+              child: Text('No'),
+            ),
+            TextButton(
+              onPressed: () => Navigator.of(context).pop(true),
+              child: Text('Yes'),
+            ),
+          ],
+        ),
+      ),
+      onDismissed: (direction) {
         log('product id is ${productId!}');
-        Provider.of<Cart>(context , listen: false).removeItem(productId!);
+        Provider.of<Cart>(context, listen: false).removeItem(productId!);
       },
       background: Container(
         margin: const EdgeInsets.symmetric(
-          vertical: 15.0,horizontal: 4.0,
+          vertical: 15.0,
+          horizontal: 4.0,
         ),
         padding: const EdgeInsets.only(right: 20.0),
         color: Theme.of(context).errorColor,
         alignment: Alignment.centerRight,
-        child: Icon(Icons.delete , color: Colors.white, size: 40,),
+        child: Icon(
+          Icons.delete,
+          color: Colors.white,
+          size: 40,
+        ),
       ),
       child: Card(
-        margin: const EdgeInsets.symmetric(horizontal: 15.0  ,vertical: 4.0),
+        margin: const EdgeInsets.symmetric(horizontal: 15.0, vertical: 4.0),
         child: Padding(
           padding: const EdgeInsets.all(8.0),
           child: ListTile(
-            leading: CircleAvatar(child: Padding(
+            leading: CircleAvatar(
+                child: Padding(
               padding: const EdgeInsets.all(5.0),
               child: FittedBox(child: Text('\$ $price')),
             )),
