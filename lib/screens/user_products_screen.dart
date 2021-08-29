@@ -12,7 +12,6 @@ class UserProductsScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final productsData = Provider.of<Products>(context, listen: false);
     return Scaffold(
       drawer: AppDrawer(),
       appBar: AppBar(
@@ -28,13 +27,15 @@ class UserProductsScreen extends StatelessWidget {
       ),
       body: Padding(
         padding: const EdgeInsets.all(8.0),
-        child: ListView.separated(
-          itemCount: productsData.items.length,
-          itemBuilder: (context, index) => UserProductItem(
-            title: productsData.items[index].title,
-            imageUrl: productsData.items[index].imageUrl,
+        child: Consumer<Products>(
+          builder: (context, productsData, child) => ListView.separated(
+            itemCount: productsData.items.length,
+            itemBuilder: (context, index) => UserProductItem(
+              title: productsData.items[index].title,
+              imageUrl: productsData.items[index].imageUrl,
+            ),
+            separatorBuilder: (context, index) => Divider(),
           ),
-          separatorBuilder: (context, index) => Divider(),
         ),
       ),
     );
